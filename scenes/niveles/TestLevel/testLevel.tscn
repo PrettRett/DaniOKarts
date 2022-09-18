@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/player/firstPlayer/firstPlayer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/maps/firstMap/firstMap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/niveles/TestLevel/Camera.gd" type="Script" id=3]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="MapGeneral" parent="." instance=ExtResource( 2 )]
+
+[node name="PlayerGeneral" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.07874, 0 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.2838, 27.4929 )
+current = true
+far = 150.0
+script = ExtResource( 3 )
+target_path = NodePath("../PlayerGeneral/Ball")
+offset = Vector3( 0, 7, 5 )
+
+[editable path="PlayerGeneral"]
