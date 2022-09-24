@@ -16,7 +16,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.2838, 27.4929 )
 current = true
 far = 150.0
 script = ExtResource( 3 )
-target_path = NodePath("../PlayerGeneral/Ball")
-offset = Vector3( 0, 7, 5 )
+lerp_speed = 5.0
+target_path = NodePath("../PlayerGeneral/CarMesh")
+offset = Vector3( 0, 21, 15 )
 
 [editable path="PlayerGeneral"]
