@@ -9,7 +9,7 @@ onready var ground_ray = $CarMesh/RayCastvariables
 # var b = "text"
 
 # Where to place the car mesh relative to the sphere
-var sphere_offset = Vector3(0, -3.0, 0)
+var sphere_offset = Vector3(0, -1.8, 0)
 # Engine power
 var acceleration = 30
 # Turn amount, in degrees

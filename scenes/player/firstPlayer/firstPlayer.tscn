@@ -8,21 +8,24 @@ bounce = 0.1
 absorbent = true
 
 [sub_resource type="SphereShape" id=1]
-radius = 3.0
+radius = 1.8
 
 [node name="PlayerGeneral" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="CarMesh" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0 )
-
-[node name="kart" parent="CarMesh" instance=ExtResource( 1 )]
-transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
 
 [node name="RayCastvariables" type="RayCast" parent="CarMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.492801, 0 )
 enabled = true
 collide_with_areas = true
+
+[node name="customTf" type="Spatial" parent="CarMesh"]
+transform = Transform( 1.25, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5 )
+
+[node name="kart" parent="CarMesh/customTf" instance=ExtResource( 1 )]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0 )
 
 [node name="Ball" type="RigidBody" parent="."]
 mass = 0.2
