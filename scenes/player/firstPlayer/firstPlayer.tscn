@@ -10,7 +10,7 @@ absorbent = true
 [sub_resource type="SphereShape" id=1]
 radius = 1.8
 
-[node name="PlayerGeneral" type="Spatial"]
+[node name="PlayerGeneral" type="Spatial" groups=["player"]]
 script = ExtResource( 2 )
 
 [node name="CarMesh" type="Spatial" parent="."]

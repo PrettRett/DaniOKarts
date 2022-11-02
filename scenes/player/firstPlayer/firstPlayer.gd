@@ -23,6 +23,15 @@ var turn_stop_limit = 2
 var speed_input = 0
 var rotate_input = 0
 
+var nextCheckpoint : Spatial = null
+
+func get_next_checkpoint() -> Spatial:
+	return nextCheckpoint
+
+func set_next_checkpoint(nextCheck : Spatial) -> void:
+	if nextCheck.has_method("get_revive_position"):
+		nextCheckpoint = nextCheck
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ground_ray.add_exception(ball)
