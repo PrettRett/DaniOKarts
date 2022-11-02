@@ -1,7 +1,7 @@
 extends Spatial
 
-signal checkpoint_reached
-signal loop_end_reached
+signal checkpoint_reached(body)
+signal loop_end_reached(body)
 
 export (NodePath) var checkArea = null
 export (NodePath) var nextCheck = null
@@ -34,17 +34,17 @@ func on_myArea_body_entered(body : Node):
 	if body.is_in_group("player"):
 		# yes:
 		## Are we the next checkpoint for the player?
-		if body.has_method("get_next_checkpoint"):
-			if body.get_next_checkpoint() == self:
-				## yes:
-				### Am I end of the race?
-				if isEnd:
-					### yes:
-					#### signal loop_end_reached
-					emit_signal("loop_end_reached")
-				else:
-					### no:
-					### trigger checkpoint_reached
-					### set next checkpoint for the player
-					emit_signal("checkpoint_reached")
-					body.set_next_checkpoint(get_node(nextCheck))
+		if body.get_next_checkpoint() == self:
+			## yes:
+			### Am I end of the race?
+			if isEnd:
+				### yes:
+				#### signal loop_end_reached
+				emit_signal("loop_end_reached", body)
+				body.increase_loop_number()
+			else:
+				### no:
+				### trigger checkpoint_reached
+				### set next checkpoint for the player
+				emit_signal("checkpoint_reached", body)
+				body.set_next_checkpoint(get_node(nextCheck))
