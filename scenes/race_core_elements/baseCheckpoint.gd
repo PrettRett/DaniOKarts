@@ -23,28 +23,30 @@ func _ready():
 	
 	if nextCheck:
 		isEnd = false
-	pass # Replace with function body.
 
 func get_revive_position() -> Vector3:
 	return ($Position3D as Position3D).global_translation
 
-
-func on_myArea_body_entered(body : Node):
+func on_myArea_body_entered(body : Spatial):
 	# is body player?
-	if body.is_in_group("player"):
+	if body.get_parent().is_in_group("player"):
 		# yes:
+		var player = body.get_parent()
 		## Are we the next checkpoint for the player?
-		if body.get_next_checkpoint() == self:
+		if player.get_next_checkpoint() == self:
 			## yes:
 			### Am I end of the race?
 			if isEnd:
 				### yes:
 				#### signal loop_end_reached
-				emit_signal("loop_end_reached", body)
-				body.increase_loop_number()
+				player.increase_loop_number()
+				emit_signal("loop_end_reached", player)
 			else:
 				### no:
 				### trigger checkpoint_reached
 				### set next checkpoint for the player
-				emit_signal("checkpoint_reached", body)
-				body.set_next_checkpoint(get_node(nextCheck))
+				player.set_next_checkpoint(get_node(nextCheck))
+				emit_signal("checkpoint_reached", player)
+		else:
+			print("not today")
+			player.set_next_position(get_revive_position())

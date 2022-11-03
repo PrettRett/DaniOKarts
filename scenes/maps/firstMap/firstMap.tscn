@@ -37,6 +37,7 @@ extents = Vector3( 25, 25, 1 )
 
 [node name="MapGeneral" type="Spatial"]
 script = ExtResource( 6 )
+loopsNumber = 0
 
 [node name="CSGCombiner" type="CSGCombiner" parent="."]
 material_override = SubResource( 1 )

@@ -36,6 +36,7 @@ func increase_loop_number() -> void:
 		if raceManager.has_method("get_loops_to_complete"):
 			if loopNumber >= raceManager.get_loops_to_complete():
 				emit_signal("race_finished")
+				print("emitted")
 
 func set_race_manager(raceMng) -> void:
 	raceManager = raceMng
@@ -46,6 +47,10 @@ func get_next_checkpoint() -> Spatial:
 func set_next_checkpoint(nextCheck : Spatial) -> void:
 	if nextCheck.has_method("get_revive_position"):
 		nextCheckpoint = nextCheck
+	
+func set_next_position(position : Vector3):
+	ball.global_transform.origin = position
+	car_mesh.transform.origin = ball.transform.origin + sphere_offset
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
