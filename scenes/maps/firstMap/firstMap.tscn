@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/textures/Dark/texture_12.png" type="Texture" id=1]
 [ext_resource path="res://assets/textures/Orange/texture_13.png" type="Texture" id=2]
 [ext_resource path="res://assets/textures/Light/texture_11.png" type="Texture" id=3]
 [ext_resource path="res://assets/textures/Green/texture_13.png" type="Texture" id=4]
+[ext_resource path="res://scenes/race_core_elements/baseCheckpoint.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/maps/firstMap/firstMap.gd" type="Script" id=6]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_world_triplanar = true
@@ -29,7 +31,13 @@ albedo_texture = ExtResource( 3 )
 uv1_scale = Vector3( 0.3, 0.3, 0.3 )
 uv1_triplanar = true
 
+[sub_resource type="BoxShape" id=5]
+margin = 0.001
+extents = Vector3( 25, 25, 1 )
+
 [node name="MapGeneral" type="Spatial"]
+script = ExtResource( 6 )
+loopsNumber = 0
 
 [node name="CSGCombiner" type="CSGCombiner" parent="."]
 material_override = SubResource( 1 )
@@ -89,3 +97,72 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -50 )
 radius = 40.0
 height = 1.9
 sides = 14
+
+[node name="ChkAreas" type="Spatial" parent="."]
+
+[node name="CheckArea_1" type="Area" parent="ChkAreas"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13.9381 )
+
+[node name="CheckColl_1" type="CollisionShape" parent="ChkAreas/CheckArea_1"]
+shape = SubResource( 5 )
+
+[node name="CheckArea_2" type="Area" parent="ChkAreas"]
+transform = Transform( 0.846193, 0, -0.532876, 0, 1, 0, 0.532876, 0, 0.846193, 7.30479, 0, -49.7278 )
+
+[node name="CheckColl_1" type="CollisionShape" parent="ChkAreas/CheckArea_2"]
+shape = SubResource( 5 )
+
+[node name="CheckArea_3" type="Area" parent="ChkAreas"]
+transform = Transform( 0.806186, 0, 0.591662, 0, 1, 0, -0.591662, 0, 0.806186, 59.2676, 3.8147e-06, -60.8352 )
+
+[node name="CheckColl_1" type="CollisionShape" parent="ChkAreas/CheckArea_3"]
+shape = SubResource( 5 )
+
+[node name="CheckArea_4" type="Area" parent="ChkAreas"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 64.0779, 3.8147e-06, -19.2476 )
+
+[node name="CheckColl_1" type="CollisionShape" parent="ChkAreas/CheckArea_4"]
+shape = SubResource( 5 )
+
+[node name="CheckArea_5" type="Area" parent="ChkAreas"]
+transform = Transform( 0.806186, 0, 0.591662, 0, 1, 0, -0.591662, 0, 0.806186, 56.2676, 3.8147e-06, 36.1648 )
+
+[node name="CheckColl_1" type="CollisionShape" parent="ChkAreas/CheckArea_5"]
+shape = SubResource( 5 )
+
+[node name="CheckArea_6" type="Area" parent="ChkAreas"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26759, 3.8147e-06, 8.16484 )
+
+[node name="CheckColl_1" type="CollisionShape" parent="ChkAreas/CheckArea_6"]
+shape = SubResource( 5 )
+
+[node name="ChkNodes" type="Spatial" parent="."]
+
+[node name="StartCheck" parent="ChkNodes" instance=ExtResource( 5 )]
+checkArea = NodePath("../../ChkAreas/CheckArea_1")
+nextCheck = NodePath("../Check2")
+StartingCheck = true
+
+[node name="Check2" parent="ChkNodes" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
+checkArea = NodePath("../../ChkAreas/CheckArea_2")
+nextCheck = NodePath("../Check3")
+
+[node name="Check3" parent="ChkNodes" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -53 )
+checkArea = NodePath("../../ChkAreas/CheckArea_3")
+nextCheck = NodePath("../Check4")
+
+[node name="Check4" parent="ChkNodes" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, -53 )
+checkArea = NodePath("../../ChkAreas/CheckArea_4")
+nextCheck = NodePath("../Check5")
+
+[node name="Check5" parent="ChkNodes" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 0, -19 )
+checkArea = NodePath("../../ChkAreas/CheckArea_5")
+nextCheck = NodePath("../EndCheck")
+
+[node name="EndCheck" parent="ChkNodes" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 45 )
+checkArea = NodePath("../../ChkAreas/CheckArea_6")

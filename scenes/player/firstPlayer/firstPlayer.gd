@@ -1,12 +1,11 @@
 extends Spatial
 
+signal race_finished
+
 # Node references
 onready var ball = $Ball
 onready var car_mesh = $CarMesh
 onready var ground_ray = $CarMesh/RayCastvariables
-
-# var a = 2
-# var b = "text"
 
 # Where to place the car mesh relative to the sphere
 var sphere_offset = Vector3(0, -1.8, 0)
@@ -22,6 +21,36 @@ var turn_stop_limit = 2
 # Variables for input values
 var speed_input = 0
 var rotate_input = 0
+
+var nextCheckpoint : Spatial = null
+var raceManager = null
+
+var loopNumber : int = 0
+
+func get_loop_number() -> int:
+	return loopNumber
+
+func increase_loop_number() -> void:
+	loopNumber += 1
+	if raceManager:
+		if raceManager.has_method("get_loops_to_complete"):
+			if loopNumber >= raceManager.get_loops_to_complete():
+				emit_signal("race_finished")
+				print("emitted")
+
+func set_race_manager(raceMng) -> void:
+	raceManager = raceMng
+
+func get_next_checkpoint() -> Spatial:
+	return nextCheckpoint
+
+func set_next_checkpoint(nextCheck : Spatial) -> void:
+	if nextCheck.has_method("get_revive_position"):
+		nextCheckpoint = nextCheck
+	
+func set_next_position(position : Vector3):
+	ball.global_transform.origin = position
+	car_mesh.transform.origin = ball.transform.origin + sphere_offset
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

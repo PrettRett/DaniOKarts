@@ -7,6 +7,7 @@
 [node name="Spatial" type="Spatial"]
 
 [node name="MapGeneral" parent="." instance=ExtResource( 2 )]
+mainPlayer = NodePath("../PlayerGeneral")
 
 [node name="PlayerGeneral" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.07874, 0 )
