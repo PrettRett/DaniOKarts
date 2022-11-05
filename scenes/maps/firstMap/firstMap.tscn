@@ -139,30 +139,31 @@ shape = SubResource( 5 )
 [node name="ChkNodes" type="Spatial" parent="."]
 
 [node name="StartCheck" parent="ChkNodes" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 6, 4 )
 checkArea = NodePath("../../ChkAreas/CheckArea_1")
 nextCheck = NodePath("../Check2")
 StartingCheck = true
 
 [node name="Check2" parent="ChkNodes" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -18 )
 checkArea = NodePath("../../ChkAreas/CheckArea_2")
 nextCheck = NodePath("../Check3")
 
 [node name="Check3" parent="ChkNodes" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -53 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 6, -57 )
 checkArea = NodePath("../../ChkAreas/CheckArea_3")
 nextCheck = NodePath("../Check4")
 
 [node name="Check4" parent="ChkNodes" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, -53 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 6, -48 )
 checkArea = NodePath("../../ChkAreas/CheckArea_4")
 nextCheck = NodePath("../Check5")
 
 [node name="Check5" parent="ChkNodes" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 0, -19 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 5, -12 )
 checkArea = NodePath("../../ChkAreas/CheckArea_5")
 nextCheck = NodePath("../EndCheck")
 
 [node name="EndCheck" parent="ChkNodes" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 45 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 5, 51 )
 checkArea = NodePath("../../ChkAreas/CheckArea_6")

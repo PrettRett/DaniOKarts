@@ -13,6 +13,7 @@ export (bool) var StartingCheck = false
 # var b = "text"
 var isEnd : bool = true
 var myArea : Area = null
+var nextArea : Spatial = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,6 +23,7 @@ func _ready():
 		myArea.connect("body_entered",self,"on_myArea_body_entered")
 	
 	if nextCheck:
+		nextArea = get_node(nextCheck)
 		isEnd = false
 
 func get_revive_position() -> Vector3:
@@ -48,5 +50,9 @@ func on_myArea_body_entered(body : Spatial):
 				player.set_next_checkpoint(get_node(nextCheck))
 				emit_signal("checkpoint_reached", player)
 		else:
-			print("not today")
-			player.set_next_position(get_revive_position())
+			if player.get_next_checkpoint() == nextArea:
+				# do nothing
+				pass
+			else:
+				print("not today")
+				player.revive()

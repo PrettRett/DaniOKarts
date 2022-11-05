@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/player/firstPlayer/firstPlayer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/maps/firstMap/firstMap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/niveles/TestLevel/Camera.gd" type="Script" id=3]
+[ext_resource path="res://assets/3dModels/kart/Mat_7.material" type="Material" id=4]
+[ext_resource path="res://assets/3dModels/kart/Mat_9.material" type="Material" id=5]
+
+[sub_resource type="SphereShape" id=1]
+
+[sub_resource type="CylinderShape" id=2]
+height = 2.49217
 
 [node name="Spatial" type="Spatial"]
 
@@ -10,7 +17,7 @@
 mainPlayer = NodePath("../PlayerGeneral")
 
 [node name="PlayerGeneral" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.07874, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.407619, 3.25522, -1.88024 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.2838, 27.4929 )
@@ -20,5 +27,32 @@ script = ExtResource( 3 )
 lerp_speed = 5.0
 target_path = NodePath("../PlayerGeneral/CarMesh")
 offset = Vector3( 0, 11, 8 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.391, 7.44388, -64.3144 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0515995, 0.0486679, 0.0260391 )
+shape = SubResource( 1 )
+
+[node name="CSGSphere" type="CSGSphere" parent="StaticBody/CollisionShape"]
+material = ExtResource( 4 )
+
+[node name="PinJoint" type="PinJoint" parent="StaticBody"]
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RigidBody")
+
+[node name="RigidBody" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.3372, 4, -64.2476 )
+mass = 0.0510204
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00279236, 1.17346, -0.0431366 )
+shape = SubResource( 2 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="RigidBody/CollisionShape"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.609045, 0 )
+height = 3.72727
+material = ExtResource( 5 )
 
 [editable path="PlayerGeneral"]

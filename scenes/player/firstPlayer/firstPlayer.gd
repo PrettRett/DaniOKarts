@@ -48,9 +48,19 @@ func set_next_checkpoint(nextCheck : Spatial) -> void:
 	if nextCheck.has_method("get_revive_position"):
 		nextCheckpoint = nextCheck
 	
+func revive():
+	if is_instance_valid(nextCheckpoint):
+		set_next_position(nextCheckpoint.get_revive_position())
+		set_direction(nextCheckpoint.global_rotation)
+
 func set_next_position(position : Vector3):
 	ball.global_transform.origin = position
-	car_mesh.transform.origin = ball.transform.origin + sphere_offset
+	car_mesh.global_transform.origin = ball.global_transform.origin + sphere_offset
+	ball.angular_velocity = Vector3(0,0,0)
+	ball.linear_velocity = Vector3(0,0,0)
+
+func set_direction(direction : Vector3):
+	car_mesh.global_rotation = direction
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
